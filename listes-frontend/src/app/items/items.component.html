@@ -1,0 +1,97 @@
+<div class="p-4">
+    <!-- Header -->
+    <div class="flex gap-3 mb-6">
+        <p-button 
+            [label]="'←'"
+            (onClick)="goBack()"
+            [text]="true">
+        </p-button>
+        <h1 class="text-2xl font-bold">{{currentList?.title || 'Liste #' + (+indexList + 1)}}</h1>
+    </div>
+
+    <!-- Add new item -->
+    <div class="bg-white p-4 border mb-4">
+        <div class="flex gap-3">
+            <input 
+                type="text" 
+                pInputText 
+                [(ngModel)]="newItemTitle"
+                placeholder="Nouvel élément..."
+                class="flex-1"
+                (keyup.enter)="addItem()">
+            <p-button 
+                [label]="ButtonTexts.add"
+                (onClick)="addItem()"
+                [disabled]="!newItemTitle.trim()">
+            </p-button>
+        </div>
+    </div>
+
+    <!-- Items -->
+    @if (items.length > 0) {
+        <div class="space-y-3">
+            @for (item of items; track $index; let i = $index) {
+                <div class="bg-white p-4 border"
+                    [class.cursor-pointer]="editingIndex !== i"
+                    (click)="navigateToItem(i)">
+                    <div class="flex justify-between">
+                        <div class="flex gap-3 flex-1">
+                            @if (editingIndex !== i) {
+                                <div class="flex-1">
+                                    <h3 class="font-medium">{{item.title}}</h3>
+                                </div>
+                            }
+                            @if (editingIndex === i) {
+                                <div class="flex-1">
+                                    <input 
+                                        type="text" 
+                                        pInputText 
+                                        [(ngModel)]="editTitle"
+                                        class="w-full"
+                                        (keyup.enter)="saveEdit(i)"
+                                        (keyup.escape)="cancelEdit()">
+                                </div>
+                            }
+                        </div>
+                        <div class="flex gap-2">
+                            @if (editingIndex !== i) {
+                                <p-button 
+                                    [label]="Icons.pencil"
+                                    (onClick)="$event.stopPropagation(); startEdit(i, item)"
+                                    [text]="true">
+                                </p-button>
+                                <p-button 
+                                    [label]="Icons.trash"
+                                    (onClick)="$event.stopPropagation(); deleteItem(i)"
+                                    severity="danger"
+                                    [text]="true">
+                                </p-button>
+                            }
+                            @if (editingIndex === i) {
+                                <p-button 
+                                    [label]="Icons.check"
+                                    (onClick)="$event.stopPropagation(); saveEdit(i)"
+                                    severity="success"
+                                    [text]="true"
+                                    [disabled]="!editTitle.trim()">
+                                </p-button>
+                                <p-button 
+                                    [label]="Icons.times"
+                                    (onClick)="$event.stopPropagation(); cancelEdit()"
+                                    [text]="true">
+                                </p-button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    } @else {
+        <div class="text-center py-12">
+            <h3 class="text-lg font-medium mb-2">Aucun élément</h3>
+            <p class="text-gray-500">Ajoutez votre premier élément ci-dessus</p>
+        </div>
+    }
+
+    <p-toast></p-toast>
+</div>

@@ -1,0 +1,91 @@
+<div class="p-4">
+    <h1 class="text-2xl font-bold mb-6">Mes Listes</h1>
+
+    <!-- Add new list -->
+    <div class="bg-white p-4 border mb-4">
+        <div class="flex gap-3">
+            <input 
+                type="text" 
+                pInputText 
+                [(ngModel)]="newListTitle"
+                placeholder="Nouvelle liste..."
+                class="flex-1"
+                (keyup.enter)="addList()">
+            <p-button 
+                [label]="ButtonTexts.add"
+                (onClick)="addList()"
+                [disabled]="!newListTitle.trim()">
+            </p-button>
+        </div>
+    </div>
+
+    <!-- Lists -->
+    @if (lists.length > 0) {
+        <div class="space-y-3">
+            @for (list of lists; track list._id; let i = $index) {
+                <div class="bg-white p-4 border"
+                    [class.cursor-pointer]="editingIndex !== i"
+                    (click)="navigateToList(i)">
+                    <div class="flex justify-between">
+                        <div class="flex gap-3 flex-1">
+                            @if (editingIndex !== i) {
+                                <div class="flex-1">
+                                    <h3 class="font-medium">{{list.title || 'Liste #' + (i + 1)}}</h3>
+                                    <p class="text-sm text-gray-500">{{list.items.length}} éléments</p>
+                                </div>
+                            }
+                            @if (editingIndex === i) {
+                                <div class="flex-1">
+                                    <input 
+                                        type="text" 
+                                        pInputText 
+                                        [(ngModel)]="editTitle"
+                                        class="w-full mb-2"
+                                        (keyup.enter)="saveEdit(list)"
+                                        (keyup.escape)="cancelEdit()">
+                                    <p class="text-sm text-gray-500">{{list.items.length}} éléments</p>
+                                </div>
+                            }
+                        </div>
+                        <div class="flex gap-2">
+                            @if (editingIndex !== i) {
+                                <p-button 
+                                    [label]="Icons.pencil" 
+                                    (onClick)="$event.stopPropagation(); startEdit(i, list)"
+                                    [text]="true">
+                                </p-button>
+                                <p-button 
+                                    [label]="Icons.trash"
+                                    (onClick)="$event.stopPropagation(); deleteList(list._id)"
+                                    severity="danger"
+                                    [text]="true">
+                                </p-button>
+                            }
+                            @if (editingIndex === i) {
+                                <p-button 
+                                    [label]="Icons.check"
+                                    (onClick)="$event.stopPropagation(); saveEdit(list)"
+                                    severity="success"
+                                    [text]="true"
+                                    [disabled]="!editTitle.trim()">
+                                </p-button>
+                                <p-button 
+                                    [label]="Icons.times"
+                                    (onClick)="$event.stopPropagation(); cancelEdit()"
+                                    [text]="true">
+                                </p-button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    } @else {
+        <div class="text-center py-12">
+            <h3 class="text-lg font-medium mb-2">Aucune liste</h3>
+            <p class="text-gray-500">Créez votre première liste ci-dessus</p>
+        </div>
+    }
+
+    <p-toast></p-toast>
+</div>

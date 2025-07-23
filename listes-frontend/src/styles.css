@@ -1,0 +1,166 @@
+/* You can add global styles to this file, and also import other style files */
+
+/* @import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css"; */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Styles globaux */
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    background-color: var(--surface-ground);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card {
+    background: var(--surface-card);
+    padding: 2rem;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    box-shadow: var(--card-shadow);
+}
+
+/* Utilitaires */
+.mb-3 {
+    margin-bottom: 1rem;
+}
+
+.mr-2 {
+    margin-right: 0.5rem;
+}
+
+.p-4 {
+    padding: 1rem;
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.flex {
+    display: flex;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}
+
+/* Typographie */
+.text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+/* Styles mobile pour l'application Lists */
+.lists-container,
+.items-container,
+.item-description-container {
+    padding: 1rem;
+    min-height: 100vh;
+    background-color: var(--surface-ground);
+}
+
+/* Mobile First - Responsive Cards */
+@media (max-width: 768px) {
+    .lists-container,
+    .items-container,
+    .item-description-container {
+        padding: 0.5rem;
+    }
+    
+    .p-card {
+        border-radius: 8px;
+    }
+    
+    .p-toolbar {
+        padding: 0.75rem !important;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .p-toolbar .p-toolbar-group-start,
+    .p-toolbar .p-toolbar-group-end {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+    
+    .p-dialog-content {
+        padding: 1rem !important;
+    }
+    
+    .p-button-label {
+        font-size: 0.875rem;
+    }
+    
+    /* Améliorer la lisibilité sur mobile */
+    .text-lg {
+        font-size: 1rem !important;
+    }
+    
+    .text-xl {
+        font-size: 1.125rem !important;
+    }
+    
+    .text-2xl {
+        font-size: 1.25rem !important;
+    }
+}
+
+/* Animation pour les cartes */
+.p-card {
+    transition: all 0.3s ease;
+}
+
+.p-card:hover {
+    transform: translateY(-2px);
+}
+
+/* Styles pour les boutons d'action */
+.p-button.p-button-danger {
+    --p-button-danger-background: #ef4444;
+    --p-button-danger-border-color: #ef4444;
+}
+
+.p-button.p-button-warning {
+    --p-button-warning-background: #f59e0b;
+    --p-button-warning-border-color: #f59e0b;
+}
+
+.p-button.p-button-success {
+    --p-button-success-background: #10b981;
+    --p-button-success-border-color: #10b981;
+}
+
+/* Amélioration des dialogs sur mobile */
+@media (max-width: 480px) {
+    .p-dialog {
+        margin: 1rem !important;
+        width: calc(100vw - 2rem) !important;
+        max-width: none !important;
+    }
+    
+    .p-dialog-header {
+        padding: 1rem !important;
+    }
+}
+
+/* Styles pour la navigation breadcrumb */
+.breadcrumb-info {
+    font-size: 0.875rem;
+    color: var(--text-color-secondary);
+    margin-bottom: 0.5rem;
+}

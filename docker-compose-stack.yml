@@ -1,0 +1,58 @@
+services:
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "${MONGODB_PORT}:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGODB_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGODB_PASSWORD}
+      - MONGO_INITDB_DATABASE=${MONGODB_DATABASE}
+    volumes:
+      - mongodb_data:/data/db
+    restart: unless-stopped
+    networks:
+      - backend
+
+  listes-backend:
+    image: ghcr.io/solairefr/listes-backend:latest
+    container_name: listes-backend
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    environment:
+      PORT: ${PORT}
+      NODE_ENV: ${NODE_ENV}
+      MONGODB_HOST: ${MONGODB_HOST}
+      MONGODB_PORT: ${MONGODB_PORT}
+      MONGODB_USER: ${MONGODB_USER}
+      MONGODB_PASSWORD: ${MONGODB_PASSWORD}
+      MONGODB_DATABASE: ${MONGODB_DATABASE}
+      MONGODB_URI: ${MONGODB_URI}
+      SWAGGER_TITLE: ${SWAGGER_TITLE}
+      SWAGGER_DESCRIPTION: ${SWAGGER_DESCRIPTION}
+      SWAGGER_VERSION: ${SWAGGER_VERSION}
+      SWAGGER_PATH: ${SWAGGER_PATH}
+    networks:
+      - backend
+
+  listes-frontend:
+    image: ghcr.io/solairefr/listes-frontend:latest
+    container_name: listes-frontend
+    restart: unless-stopped
+    ports:
+      - 4200:80
+    depends_on:
+      - listes-backend
+    networks:
+      - frontend
+
+volumes:
+  mongodb_data:
+
+networks:
+    backend:
+        name: backend
+        external: true
+    frontend:
+        name: frontend
+        external: true
