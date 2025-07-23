@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "motivation-frontend": {
+    "listes-frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": "dist/motivation-frontend",
+            "outputPath": "dist/listes-frontend",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
@@ -62,10 +62,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "motivation-frontend:build:production"
+              "buildTarget": "listes-frontend:build:production"
             },
             "development": {
-              "buildTarget": "motivation-frontend:build:development"
+              "buildTarget": "listes-frontend:build:development"
             }
           },
           "defaultConfiguration": "development"

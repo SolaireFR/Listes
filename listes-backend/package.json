@@ -1,7 +1,7 @@
 {
-  "name": "motivation-backend",
+  "name": "listes-backend",
   "version": "0.0.1",
-  "description": "Backend for the motivation app",
+  "description": "Backend for the listes app",
   "author": "",
   "private": true,
   "license": "UNLICENSED",
