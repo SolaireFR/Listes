@@ -1,5 +1,5 @@
 services:
-  mongodb:
+  listes-mongodb:
     image: mongo:latest
     ports:
       - "${MONGODB_PORT}:27017"
