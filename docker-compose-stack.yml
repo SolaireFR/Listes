@@ -1,6 +1,7 @@
 services:
   listes-mongodb:
     image: mongo:latest
+    container_name: listes-mongodb
     ports:
       - "${MONGODB_PORT}:27017"
     environment:
